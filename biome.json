@@ -1,0 +1,39 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.7.1/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 120
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUndeclaredVariables": "error",
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error"
+      },
+      "style": {
+        "noImplicitBoolean": "error"
+      }
+    }
+  },
+  "files": {
+    "include": [
+      "./src/**/*.js",
+      "./src/**/*.jsx",
+      "./src/**/*.ts",
+      "./src/**/*.tsx",
+      "vite.config.ts",
+      "changelog.config.js",
+      "commitlint.config.js",
+      "lint-staged.config.js",
+      "stylelint.config.js"
+    ],
+    "ignore": ["./src/**/*.module.css.d.ts", "./src/**/*.module.scss.d.ts"]
+  }
+}
