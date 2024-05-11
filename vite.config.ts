@@ -23,7 +23,15 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     test: {
-      globals: true,
+      /**
+       * グローバルを許可する場合、tsconfig.jsonに以下を追加
+       * {
+       *  "compilerOptions": {
+       *    ...
+       *    "types": ["vitest/globals"]
+       * }
+       */
+      globals: false,
       environment: "happy-dom",
       include: ["src/**/*.test.{js,ts,jsx,tsx}"],
       alias: {

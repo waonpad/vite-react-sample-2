@@ -1,11 +1,12 @@
 import { env } from "@/constants/env";
 import { HttpError } from "@/constants/errors";
+import { toReqSearchParams } from "@/utils/req-search-params";
 
-interface Options<T = object> {
+type Options<T = object> = {
   params?: T;
   headers?: HeadersInit;
   credentials?: Request["credentials"];
-}
+};
 
 /** 絶対URLかどうかを判定する　*/
 function isAbsoluteURL(url: string): boolean {
@@ -27,6 +28,8 @@ function buildFullPath(baseURL: string, requestedURL: string): string {
 
 /** リクエストヘッダを構築する */
 function buildHeaders<T = HeadersInit>(headers?: T): HeadersInit {
+  // TODO: Authorizationヘッダを追加する???
+
   if (!headers) {
     // 未指定(undefined)の場合、`Content-Type: application/json` を返す
     return {
@@ -62,20 +65,20 @@ function buildRequestBody<T = object>(body: T): string | FormData | null {
 }
 
 /** クエリパラメータ付きのURLパスを構築する */
-function buildPathWithSearchParams<T = object>(path: string, params?: T) {
-  // パラメータがない場合、URLパスをそのまま返す
-  if (!params || Object.keys(params).length === 0) return path;
+// function buildPathWithSearchParams<T = object>(path: string, params?: T) {
+//   // パラメータがない場合、URLパスをそのまま返す
+//   if (!params || Object.keys(params).length === 0) return path;
 
-  for (const key in params) {
-    if (params[key] === undefined) {
-      // URLSearchParamsで`key="undefined"`になるので削除する
-      delete params[key];
-    }
-  }
+//   for (const key in params) {
+//     if (params[key] === undefined) {
+//       // URLSearchParamsで`key="undefined"`になるので削除する
+//       delete params[key];
+//     }
+//   }
 
-  const urlSearchParams = new URLSearchParams(params);
-  return `${path}?${urlSearchParams.toString()}`;
-}
+//   const urlSearchParams = new URLSearchParams(params);
+//   return `${path}?${urlSearchParams.toString()}`;
+// }
 
 /** 通信処理を共通化した関数 */
 async function http<T>(path: string, config: RequestInit): Promise<T> {
@@ -101,7 +104,7 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
 }
 
 export async function get<T, U = object>(path: string, options?: Options<U>): Promise<T> {
-  return http<T>(buildPathWithSearchParams(path, options?.params), {
+  return http<T>(`${path}${toReqSearchParams(options?.params)}`, {
     headers: buildHeaders(options?.headers),
     credentials: buildCredentials(options?.credentials),
   });
@@ -127,7 +130,7 @@ export async function put<T, U = object>(path: string, body: T, options?: Option
 
 // deleteはJSの予約語であるためdestroyとする
 export async function destroy<T = object>(path: string, options?: Options<T>): Promise<unknown> {
-  return http(buildPathWithSearchParams(path, options?.params), {
+  return http(`${path}${toReqSearchParams(options?.params)}`, {
     method: "DELETE",
     headers: buildHeaders(options?.headers),
     credentials: buildCredentials(options?.credentials),
