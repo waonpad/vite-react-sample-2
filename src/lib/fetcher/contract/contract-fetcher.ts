@@ -19,15 +19,16 @@ import type { ApiContract } from "./types";
 export const contractFecter = <T extends ApiContract>(contract: T) => {
   return async (
     init: Options<
-      T["params"] extends undefined ? never : NonNullable<T["params"]>["_type"],
-      T["searchParams"] extends undefined ? never : NonNullable<T["searchParams"]>["_type"],
-      T["body"] extends undefined ? never : NonNullable<T["body"]>["_type"]
+      T["params"] extends undefined ? never : NonNullable<T["params"]>["_input"],
+      T["searchParams"] extends undefined ? never : NonNullable<T["searchParams"]>["_input"],
+      T["body"] extends undefined ? never : NonNullable<T["body"]>["_input"]
     >,
   ): Promise<[T["response"]["_type"], null] | [null, HttpError]> => {
     /**
      * パスパラメータのバリデーション
      */
     if (contract.params) {
+      // TODO: バリデーションエラーをHttpErrorと合わせる
       const { data, success } = contract.params.safeParse(init.params);
 
       if (!success) {
@@ -44,6 +45,7 @@ export const contractFecter = <T extends ApiContract>(contract: T) => {
      * クエリパラメータのバリデーション
      */
     if (contract.searchParams) {
+      // TODO: バリデーションエラーをHttpErrorと合わせる
       const { data, success } = contract.searchParams.safeParse(init.searchParams);
 
       if (!success) {
@@ -60,6 +62,7 @@ export const contractFecter = <T extends ApiContract>(contract: T) => {
      * リクエストボディのバリデーション
      */
     if (contract.body) {
+      // TODO: バリデーションエラーをHttpErrorと合わせる
       const { data, success } = contract.body.safeParse(init.body);
 
       if (!success) {

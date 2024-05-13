@@ -2,7 +2,8 @@ import { resolve } from "node:path";
 import react from "@vitejs/plugin-react-swc";
 import { type UserConfig, defineConfig, loadEnv } from "vite";
 import type { UserConfig as VitestUserConfig } from "vitest/dist/config.js";
-import { createEnv } from "./src/constants/env/create-env";
+
+const createEnv = require("./src/constants/env/create-env").createEnv;
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
