@@ -41,6 +41,10 @@
   "[python]": {
     "editor.tabSize": 4
   },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "files.trimTrailingWhitespace": false
+  },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.module.css": "${capture}.module.css.d.ts, ${capture}.module.css.d.ts.map",

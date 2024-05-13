@@ -23,10 +23,6 @@
     }
   },
   "files": {
-    "ignore": [
-      "./src/**/*.module.css.d.ts",
-      "./src/**/*.module.scss.d.ts",
-      "**/*.json"
-    ]
+    "ignore": ["./src/**/*.module.css.d.ts", "./src/**/*.module.scss.d.ts", "**/*.json"]
   }
 }
