@@ -23,17 +23,10 @@
     }
   },
   "files": {
-    "include": [
-      "./src/**/*.js",
-      "./src/**/*.jsx",
-      "./src/**/*.ts",
-      "./src/**/*.tsx",
-      "vite.config.ts",
-      "changelog.config.js",
-      "commitlint.config.js",
-      "lint-staged.config.js",
-      "stylelint.config.js"
-    ],
-    "ignore": ["./src/**/*.module.css.d.ts", "./src/**/*.module.scss.d.ts"]
+    "ignore": [
+      "./src/**/*.module.css.d.ts",
+      "./src/**/*.module.scss.d.ts",
+      "**/*.json"
+    ]
   }
 }

@@ -2,15 +2,14 @@ import { resolve } from "node:path";
 import react from "@vitejs/plugin-react-swc";
 import { type UserConfig, defineConfig, loadEnv } from "vite";
 import type { UserConfig as VitestUserConfig } from "vitest/dist/config.js";
-
-const createEnv = require("./src/constants/env/create-env").createEnv;
+import { createEnv } from "./src/constants/env/create-env";
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   // validae env vars
-  createEnv({ runtimeEnv: process.env });
+  const env = createEnv({ runtimeEnv: process.env });
 
   return defineConfig({
     plugins: [react()],
@@ -41,7 +40,7 @@ export default ({ mode }: { mode: string }) => {
     },
     esbuild: {
       drop:
-        process.env.VITE_APP_ENV === "production"
+        env.VITE_APP_ENV === "prod"
           ? [
               "console",
               // 'debugger'
