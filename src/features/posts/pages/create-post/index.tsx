@@ -4,7 +4,7 @@ import { useCreatePostMutation } from "../../api/create-post";
 import { createPostFormSchema } from "../../schemas";
 
 export const CreatePost = () => {
-  const { mutateAsync } = useCreatePostMutation();
+  const { mutateAsync } = useCreatePostMutation({});
 
   const {
     register,

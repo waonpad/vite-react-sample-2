@@ -16,7 +16,7 @@ import type { ApiContract } from "./types";
  *
  * console.log(data);
  */
-export const contractFecter = <T extends ApiContract>(contract: T) => {
+export const contractFetcher = <T extends ApiContract>(contract: T) => {
   return async (
     init: Options<
       T["params"] extends undefined ? undefined : NonNullable<T["params"]>["_input"],

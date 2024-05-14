@@ -14,7 +14,7 @@ export const PostDetail = () => {
     throw error;
   }
 
-  const { mutateAsync } = useDeletePostMutation();
+  const { mutateAsync } = useDeletePostMutation({});
 
   const handleDeleteClick = async () => {
     const [res, error] = await mutateAsync({ params: { id: Number(id) } });

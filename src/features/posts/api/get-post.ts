@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from "@/constants/react-query-keys";
 import { createContract } from "@/lib/fetcher/contract";
-import { contractFecter } from "@/lib/fetcher/contract/contract-fetcher";
+import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import type { QC } from "@/lib/react-query";
 import type { ExtractFnReturnType } from "@/types";
 import { type UseSuspenseQueryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export const getPostContract = createContract({
   response: postSchema,
 });
 
-export const getPost = contractFecter(getPostContract);
+export const getPost = contractFetcher(getPostContract);
 
 export const usePost = ({
   init,

@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from "@/constants/react-query-keys";
 import { createContract } from "@/lib/fetcher/contract";
-import { contractFecter } from "@/lib/fetcher/contract/contract-fetcher";
+import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { queryClient } from "@/lib/react-query";
 import type { ExtractFnReturnType } from "@/types";
 import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
@@ -13,15 +13,16 @@ export const createPostContract = createContract({
   response: postSchema,
 });
 
-export const createPost = contractFecter(createPostContract);
+export const createPost = contractFetcher(createPostContract);
 
 export const useCreatePostMutation = ({
   config,
 }: {
   config?: UseMutationOptions<ExtractFnReturnType<typeof createPost>, unknown, Parameters<typeof createPost>[0]>;
-} = {}) => {
+}) => {
   return useMutation({
     ...config,
+    // contractFetcherはエラーを投げずreturnするので、onSuccess内でエラーの有無を確認する
     onSuccess([_, error]) {
       if (!error) {
         queryClient.invalidateQueries({

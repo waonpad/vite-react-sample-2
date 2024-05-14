@@ -4,7 +4,7 @@ import { usePosts } from "../../api/get-posts";
 export const PostList = () => {
   const {
     data: [posts, error],
-  } = usePosts();
+  } = usePosts({ init: { searchParams: {} } });
 
   if (error) {
     // エラーに応じた処理
