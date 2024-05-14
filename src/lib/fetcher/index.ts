@@ -5,10 +5,11 @@ import { toReqSearchParams } from "@/utils/req-search-params";
 
 export type PathParamsObj = Record<string, string | number>;
 
-export type Options<T extends PathParamsObj, U extends object, V extends object> = Omit<
-  RequestInit,
-  "body" | "method"
-> &
+export type Options<
+  T extends PathParamsObj | undefined = undefined,
+  U extends object | undefined = undefined,
+  V extends object | undefined = undefined,
+> = Omit<RequestInit, "body" | "method"> &
   (T extends PathParamsObj ? { params: T } : { params?: never }) &
   (U extends object ? { searchParams: U } : { searchParams?: never }) &
   (V extends object ? { body: V } : { body?: never });
@@ -107,12 +108,12 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
  */
 export const get = async <
   T,
-  U extends PathParamsObj = PathParamsObj,
-  V extends object = object,
-  W extends never = never,
+  U extends PathParamsObj | undefined = undefined,
+  V extends object | undefined = undefined,
+  _W extends never = never,
 >(
   path: string,
-  options?: Options<U, V, W>,
+  options: Options<U, V, undefined>,
 ): Promise<T> => {
   return http<T>(`${replacePathParams(path, options?.params ?? {})}${toReqSearchParams(options?.searchParams)}`, {
     ...options,
@@ -129,12 +130,12 @@ export const get = async <
  */
 export const post = async <
   T,
-  U extends PathParamsObj = PathParamsObj,
-  V extends never = never,
-  W extends object = object,
+  U extends PathParamsObj | undefined = undefined,
+  _V extends never = never,
+  W extends object | undefined = undefined,
 >(
   path: string,
-  options?: Options<U, V, W>,
+  options: Options<U, undefined, W>,
 ): Promise<T> => {
   return http<T>(replacePathParams(path, options?.params ?? {}), {
     ...options,
@@ -152,12 +153,12 @@ export const post = async <
  */
 export const put = async <
   T,
-  U extends PathParamsObj = PathParamsObj,
-  V extends never = never,
-  W extends object = object,
+  U extends PathParamsObj | undefined = undefined,
+  _V extends never = never,
+  W extends object | undefined = undefined,
 >(
   path: string,
-  options?: Options<U, V, W>,
+  options: Options<U, undefined, W>,
 ): Promise<T> => {
   return http<T>(replacePathParams(path, options?.params ?? {}), {
     ...options,
@@ -176,12 +177,12 @@ export const put = async <
 // deleteはJSの予約語であるためdestroyとする
 export const destroy = async <
   T,
-  U extends PathParamsObj = PathParamsObj,
-  V extends never = never,
-  W extends never = never,
+  U extends PathParamsObj | undefined = undefined,
+  _V extends never = never,
+  _W extends never = never,
 >(
   path: string,
-  options?: Options<U, V, W>,
+  options: Options<U, undefined, undefined>,
 ): Promise<T> => {
   return http(replacePathParams(path, options?.params ?? {}), {
     ...options,

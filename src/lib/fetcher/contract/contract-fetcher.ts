@@ -19,9 +19,9 @@ import type { ApiContract } from "./types";
 export const contractFecter = <T extends ApiContract>(contract: T) => {
   return async (
     init: Options<
-      T["params"] extends undefined ? never : NonNullable<T["params"]>["_input"],
-      T["searchParams"] extends undefined ? never : NonNullable<T["searchParams"]>["_input"],
-      T["body"] extends undefined ? never : NonNullable<T["body"]>["_input"]
+      T["params"] extends undefined ? undefined : NonNullable<T["params"]>["_input"],
+      T["searchParams"] extends undefined ? undefined : NonNullable<T["searchParams"]>["_input"],
+      T["body"] extends undefined ? undefined : NonNullable<T["body"]>["_input"]
     >,
   ): Promise<[T["response"]["_type"], null] | [null, HttpError]> => {
     /**
@@ -82,7 +82,6 @@ export const contractFecter = <T extends ApiContract>(contract: T) => {
           POST: post<T["response"]["_type"]>,
           PUT: put<T["response"]["_type"]>,
           DELETE: destroy<T["response"]["_type"]>,
-          // @ts-ignore
         }[contract.method](contract.path, init);
 
         return [res, null];
