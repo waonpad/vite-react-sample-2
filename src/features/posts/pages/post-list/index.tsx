@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { usePosts } from "../../api/get-posts";
+import { PostList as PostListRenderer } from "../../components/post-list";
 
 export const PostList = () => {
   const {
@@ -11,16 +11,5 @@ export const PostList = () => {
     throw error;
   }
 
-  return (
-    <div>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <Link to={`/posts/${post.id}`}>
-            <h2>{post.title}</h2>
-          </Link>
-          <p>{post.body}</p>
-        </div>
-      ))}
-    </div>
-  );
+  return <PostListRenderer posts={posts} />;
 };

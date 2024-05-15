@@ -1,9 +1,12 @@
-import { useParams } from "react-router-dom";
-import { useDeletePostMutation } from "../../api/delete-post";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../../api/get-post";
+import { DeletePostButton } from "../../components/delete-post-button";
+import { UpdatePostLinkButton } from "../../components/update-post-link-button";
 
 export const PostDetail = () => {
   const { id } = useParams<{ id: string }>();
+
+  const navigate = useNavigate();
 
   const {
     data: [post, error],
@@ -14,27 +17,28 @@ export const PostDetail = () => {
     throw error;
   }
 
-  const { mutateAsync } = useDeletePostMutation({});
+  /**
+   * 詳細ページで削除した場合表示するものが無くなるので、 \
+   * 前のページか投稿一覧ページに遷移する \
+   */
+  const handleDeletePostButtonClick = () => {
+    // /postsに遷移する
+    // navigate("/posts");
 
-  const handleDeleteClick = async () => {
-    const [res, error] = await mutateAsync({ params: { id: Number(id) } });
-
-    if (error) {
-      // エラーに応じた処理
-      throw error;
-    }
-
-    // 成功時の処理
-    console.log(res);
+    // 前のページに戻る
+    navigate(-1);
   };
 
   return (
     <div>
       <h2>{post.title}</h2>
       <p>{post.body}</p>
-      <button type="button" onClick={handleDeleteClick}>
-        Delete
-      </button>
+      <div style={{ display: "flex", gap: 8 }}>
+        <UpdatePostLinkButton postId={post.id}>Update</UpdatePostLinkButton>
+        <DeletePostButton postId={post.id} onClick={handleDeletePostButtonClick}>
+          Delete
+        </DeletePostButton>
+      </div>
     </div>
   );
 };

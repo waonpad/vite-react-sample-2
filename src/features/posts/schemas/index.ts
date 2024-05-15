@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+/**
+ * エンティティのスキーマ
+ */
 export const postSchema = z.object({
   id: z.number({
     invalid_type_error: "IDは数値である必要があります",
@@ -23,13 +26,36 @@ export const postSchema = z.object({
   }),
 });
 
+/**
+ * 投稿作成時に送信するリクエストボディのスキーマ
+ */
 export const createPostInputSchema = postSchema.pick({
   title: true,
   body: true,
   userId: true,
 });
 
+/**
+ * 投稿作成時にフォームで入力される値のスキーマ
+ */
 export const createPostFormSchema = createPostInputSchema.pick({
+  title: true,
+  body: true,
+});
+
+/**
+ * 投稿更新時に送信するリクエストボディのスキーマ
+ */
+export const updatePostInputSchema = postSchema.pick({
+  title: true,
+  body: true,
+  userId: true,
+});
+
+/**
+ * 投稿更新時にフォームで入力される値のスキーマ
+ */
+export const updatePostFormSchema = updatePostInputSchema.pick({
   title: true,
   body: true,
 });
