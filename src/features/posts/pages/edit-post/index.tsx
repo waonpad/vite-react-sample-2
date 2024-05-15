@@ -2,8 +2,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { usePost } from "../../api/get-post";
-import { useUpdatePostMutation } from "../../api/update-post";
-import { updatePostFormSchema } from "../../schemas";
+import { updatePostContract, useUpdatePostMutation } from "../../api/update-post";
+
+/**
+ * 投稿更新時にフォームで入力される値のスキーマ
+ */
+export const updatePostFormSchema = updatePostContract.body.pick({
+  title: true,
+  body: true,
+});
 
 export const EditPost = () => {
   const { id } = useParams<{ id: string }>();

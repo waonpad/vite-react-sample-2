@@ -25,37 +25,3 @@ export const postSchema = z.object({
     required_error: "ユーザーIDは必須です",
   }),
 });
-
-/**
- * 投稿作成時に送信するリクエストボディのスキーマ
- */
-export const createPostInputSchema = postSchema.pick({
-  title: true,
-  body: true,
-  userId: true,
-});
-
-/**
- * 投稿作成時にフォームで入力される値のスキーマ
- */
-export const createPostFormSchema = createPostInputSchema.pick({
-  title: true,
-  body: true,
-});
-
-/**
- * 投稿更新時に送信するリクエストボディのスキーマ
- */
-export const updatePostInputSchema = postSchema.pick({
-  title: true,
-  body: true,
-  userId: true,
-});
-
-/**
- * 投稿更新時にフォームで入力される値のスキーマ
- */
-export const updatePostFormSchema = updatePostInputSchema.pick({
-  title: true,
-  body: true,
-});

@@ -11,7 +11,6 @@ type Props = Omit<ComponentPropsWithoutRef<typeof LinkButton>, "to"> & {
 
 export const EditPostLinkButton = ({ postId, children, ...rest }: Props) => {
   return (
-    // TODO: 実際のプロジェクトではresetcssの適用後ボタンと同じスタイルにする
     <LinkButton {...rest} to={`/posts/${postId}/edit`} role="button">
       {children ?? "Edit"}
     </LinkButton>

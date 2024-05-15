@@ -1,7 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useCreatePostMutation } from "../../api/create-post";
-import { createPostFormSchema } from "../../schemas";
+import { createPostContract, useCreatePostMutation } from "../../api/create-post";
+
+/**
+ * 投稿作成時にフォームで入力される値のスキーマ
+ */
+export const createPostFormSchema = createPostContract.body.pick({
+  title: true,
+  body: true,
+});
 
 export const CreatePost = () => {
   const { mutateAsync } = useCreatePostMutation();

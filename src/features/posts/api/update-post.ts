@@ -5,13 +5,17 @@ import { queryClient } from "@/lib/react-query";
 import type { ExtractFnReturnType } from "@/types";
 import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { z } from "zod";
-import { postSchema, updatePostInputSchema } from "../schemas";
+import { postSchema } from "../schemas";
 
 export const updatePostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",
   method: "PUT",
   params: z.object({ id: postSchema.shape.id }),
-  body: updatePostInputSchema,
+  body: postSchema.pick({
+    title: true,
+    body: true,
+    userId: true,
+  }),
   response: postSchema,
 });
 

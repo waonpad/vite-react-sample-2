@@ -4,12 +4,16 @@ import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { queryClient } from "@/lib/react-query";
 import type { ExtractFnReturnType } from "@/types";
 import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
-import { createPostInputSchema, postSchema } from "../schemas";
+import { postSchema } from "../schemas";
 
 export const createPostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts",
   method: "POST",
-  body: createPostInputSchema,
+  body: postSchema.pick({
+    title: true,
+    body: true,
+    userId: true,
+  }),
   response: postSchema,
 });
 
