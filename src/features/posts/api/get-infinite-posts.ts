@@ -1,22 +1,28 @@
-import { QUERY_KEYS } from "@/constants/react-query-keys";
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
+import { getParsedContractRequestParams } from "@/lib/fetcher/contract/utils";
 import type { QC } from "@/lib/react-query";
 import type { ExtractFnReturnType } from "@/types";
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import type { InfiniteData, UseSuspenseInfiniteQueryOptions } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  type UseSuspenseInfiniteQueryOptions,
+  useSuspenseInfiniteQuery,
+} from "@tanstack/react-query";
 import { z } from "zod";
+import { postsKeys } from "./_query-keys";
 import { getPostsContract } from "./get-posts";
 
 const DEFAULT_LIMIT = 10;
 
 export const getInfinitePostsContract = createContract({
   ...getPostsContract,
-  // 無限スクロール用なので、limitが確実に必要になる
-  // そのため、limitのデフォルト値を設定する
-  // 今回はそれ以外の部分がgetPostsContractと同じなので、スプレッド構文でコピーする
+  /**
+   * 無限スクロール用なので、_limitが確実に必要になる \
+   * そのため、_limitのデフォルト値を設定する \
+   * 今回はそれ以外の部分がgetPostsContractと同じなので、スプレッド構文でコピーする
+   */
   searchParams: getPostsContract.searchParams.merge(
-    z.object({ limit: getPostsContract.searchParams.shape._limit.default(DEFAULT_LIMIT) }),
+    z.object({ _limit: getPostsContract.searchParams.shape._limit.default(DEFAULT_LIMIT) }),
   ),
 });
 
@@ -37,7 +43,12 @@ export const useInfinitePosts = ({
 }) => {
   const { data, ...rest } = useSuspenseInfiniteQuery({
     ...config,
-    queryKey: [QUERY_KEYS.POSTS, "infinite", init.searchParams],
+    /**
+     * queryKeyには、レスポンスを変化させる要因となるデータを全て含める
+     * InfinitePostListとInfiniteAutoLoadPostListで同じキーを使っていれば、
+     * ページを遷移してもお互いのページで取得したデータが既に表示されている
+     */
+    queryKey: postsKeys.infiniteList(getParsedContractRequestParams({ contract: getInfinitePostsContract, init })),
     queryFn: ({ pageParam }) =>
       getInfinitePosts({ ...init, searchParams: { ...init.searchParams, _page: pageParam as PageParam } }),
     getNextPageParam: (lastPage, _, lastPageParam) => {

@@ -1,4 +1,3 @@
-import { QUERY_KEYS } from "@/constants/react-query-keys";
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { queryClient } from "@/lib/react-query";
@@ -6,6 +5,7 @@ import type { ExtractFnReturnType } from "@/types";
 import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { postSchema } from "../schemas";
+import { postsKeys } from "./_query-keys";
 
 export const updatePostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",
@@ -31,7 +31,7 @@ export const useUpdatePostMutation = ({
     onSuccess([data, error]) {
       if (!error) {
         queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.POSTS, data.id],
+          queryKey: postsKeys.detail(data.id),
         });
       }
     },
