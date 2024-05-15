@@ -25,7 +25,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<App />}>
         <Route index={true} element={<PostList />} />
-        <Route path="posts/*" element={<PostsRoutes />} />
+        <Route path="/posts/*" element={<PostsRoutes />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

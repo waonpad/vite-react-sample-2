@@ -5,7 +5,7 @@ import { usePost } from "../../api/get-post";
 import { useUpdatePostMutation } from "../../api/update-post";
 import { updatePostFormSchema } from "../../schemas";
 
-export const UpdatePost = () => {
+export const EditPost = () => {
   const { id } = useParams<{ id: string }>();
 
   const {

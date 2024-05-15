@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import type { postSchema } from "../schemas";
 import { DeletePostButton } from "./delete-post-button";
-import { UpdatePostLinkButton } from "./update-post-link-button";
+import { EditPostLinkButton } from "./edit-post-link-button";
 
 /**
  * このコンポーネントはドメイン知識を持っていて汎用性が必要なく、HTML構造も複雑なため、propsは必要最小限しか受け取らない
@@ -25,7 +25,7 @@ export const PostList = ({ posts }: Props) => {
             </Link>
             <p style={{ margin: 0 }}>{post.body}</p>
             <div style={{ display: "flex", gap: 8 }}>
-              <UpdatePostLinkButton postId={post.id}>Update</UpdatePostLinkButton>
+              <EditPostLinkButton postId={post.id} />
               <DeletePostButton postId={post.id}>Delete</DeletePostButton>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../../api/get-post";
 import { DeletePostButton } from "../../components/delete-post-button";
-import { UpdatePostLinkButton } from "../../components/update-post-link-button";
+import { EditPostLinkButton } from "../../components/edit-post-link-button";
 
 export const PostDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,7 +34,7 @@ export const PostDetail = () => {
       <h2>{post.title}</h2>
       <p>{post.body}</p>
       <div style={{ display: "flex", gap: 8 }}>
-        <UpdatePostLinkButton postId={post.id}>Update</UpdatePostLinkButton>
+        <EditPostLinkButton postId={post.id} />
         <DeletePostButton postId={post.id} onClick={handleDeletePostButtonClick}>
           Delete
         </DeletePostButton>

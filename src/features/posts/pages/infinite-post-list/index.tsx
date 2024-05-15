@@ -28,7 +28,7 @@ export const InfinitePostList = () => {
   return (
     <>
       <button type="button" onClick={handleLoadMoreButtonClick}>
-        load more
+        Load More
       </button>
       <PostList posts={posts} />
     </>
