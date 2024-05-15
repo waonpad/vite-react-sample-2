@@ -19,10 +19,9 @@ export const useCreatePostMutation = ({
   config,
 }: {
   config?: UseMutationOptions<ExtractFnReturnType<typeof createPost>, unknown, Parameters<typeof createPost>[0]>;
-}) => {
+} = {}) => {
   return useMutation({
     ...config,
-    // contractFetcherはエラーを投げずreturnするので、onSuccess内でエラーの有無を確認する
     onSuccess([_, error]) {
       if (!error) {
         queryClient.invalidateQueries({
