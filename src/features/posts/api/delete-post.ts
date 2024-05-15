@@ -22,10 +22,9 @@ export const useDeletePostMutation = ({
   config,
 }: {
   config?: UseMutationOptions<ExtractFnReturnType<typeof deletePost>, unknown, Parameters<typeof deletePost>[0]>;
-}) => {
+} = {}) => {
   return useMutation({
     ...config,
-    // contractFetcherはエラーを投げずreturnするので、onSuccess内でエラーの有無を確認する
     onSuccess([_, error], variables) {
       if (!error) {
         queryClient.invalidateQueries({
