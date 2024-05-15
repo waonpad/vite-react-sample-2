@@ -42,7 +42,6 @@ export const useInfinitePosts = ({
       getInfinitePosts({ ...init, searchParams: { ...init.searchParams, _page: pageParam as PageParam } }),
     getNextPageParam: (lastPage, _, lastPageParam) => {
       // エラーがある場合はundefinedを返す
-      // TODO: これでいいのか？
       if (lastPage[1]) return undefined;
 
       // ページの最後の要素数がlimitより少ない場合は次のページがない
