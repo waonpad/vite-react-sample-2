@@ -4,7 +4,7 @@ import { useCreatePostMutation } from "../../api/create-post";
 import { createPostFormSchema } from "../../schemas";
 
 export const CreatePost = () => {
-  const { mutateAsync } = useCreatePostMutation({});
+  const { mutateAsync } = useCreatePostMutation();
 
   const {
     register,
@@ -12,14 +12,11 @@ export const CreatePost = () => {
     formState: { errors },
     reset,
   } = useForm<typeof createPostFormSchema._input>({
-    // mode: "onBlur",
-    // defaultValues: {},
-    // criteriaMode: "all",
     resolver: zodResolver(createPostFormSchema),
   });
 
   const onSubmit = handleSubmit(async (data: typeof createPostFormSchema._type) => {
-    const [res, error] = await mutateAsync({ body: { ...data, userId: 1 } });
+    const [createdPost, error] = await mutateAsync({ body: { ...data, userId: 1 } });
 
     // TODO: いい感じにバックエンドのエラーやcontractFetcherで投げられたエラーをさばきたい
     if (error) {
@@ -28,19 +25,20 @@ export const CreatePost = () => {
     }
 
     // 成功時の処理
-    console.log(res);
+    console.log("Created", createdPost);
 
+    // フォームを初期値に戻す
     reset();
   });
 
   return (
     <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
       <div>
-        <input {...register("title")} style={{ width: "100%" }} />
+        <input {...register("title")} style={{ width: "100%", boxSizing: "border-box" }} />
         {errors.title && <p style={{ margin: 0 }}>{errors.title.message}</p>}
       </div>
       <div>
-        <input {...register("body")} style={{ width: "100%" }} />
+        <input {...register("body")} style={{ width: "100%", boxSizing: "border-box" }} />
         {errors.body && <p style={{ margin: 0 }}>{errors.body.message}</p>}
       </div>
       <button type="submit">Submit</button>
