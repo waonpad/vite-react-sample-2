@@ -35,7 +35,7 @@ export const PostDetail = () => {
       <h2>{post.title}</h2>
       <p>{post.body}</p>
       <div style={{ display: "flex", gap: 8 }}>
-        <EditPostLinkButton postId={post.id} />
+        <EditPostLinkButton postId={post.id}>Edit</EditPostLinkButton>
         <DeletePostButton postId={post.id} onClick={handleDeletePostButtonClick}>
           Delete
         </DeletePostButton>
