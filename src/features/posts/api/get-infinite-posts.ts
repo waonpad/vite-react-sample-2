@@ -9,7 +9,7 @@ import {
   useSuspenseInfiniteQuery,
 } from "@tanstack/react-query";
 import { z } from "zod";
-import { postsKeys } from "./_query-keys";
+import { postsKeys } from "./_keys";
 import { getPostsContract } from "./get-posts";
 
 const DEFAULT_LIMIT = 10;

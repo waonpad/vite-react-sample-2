@@ -1,14 +1,18 @@
 import { useIntersectionObserver } from "@/utils/hooks/use-intersection-observer";
+import { parse } from "qs";
 import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useInfinitePosts } from "../../api/get-infinite-posts";
-import { PostList } from "../../components/post-list";
+import { PostListRenderer } from "../../components/post-list-renderer";
 
 export const InfiniteAutoLoadPostList = () => {
+  const { search } = useLocation();
+
   const {
     data: { pages },
     fetchNextPage,
     hasNextPage,
-  } = useInfinitePosts({ init: { searchParams: {} } });
+  } = useInfinitePosts({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
 
   for (const error of pages.map((page) => page[1])) {
     if (error) {
@@ -29,9 +33,10 @@ export const InfiniteAutoLoadPostList = () => {
   });
 
   return (
-    <>
-      <PostList posts={posts} />
+    <div>
+      <h1 style={{ fontSize: 20 }}>Infinite Auto Load</h1>
+      <PostListRenderer posts={posts} />
       <div ref={loadMoreRef} style={{ visibility: "hidden" }} aria-label="load more event target" />
-    </>
+    </div>
   );
 };

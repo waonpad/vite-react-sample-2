@@ -11,7 +11,7 @@ export const createPostFormSchema = createPostContract.body.pick({
 });
 
 export const CreatePost = () => {
-  const { mutateAsync } = useCreatePostMutation();
+  const { mutateAsync, isPending } = useCreatePostMutation();
 
   const {
     register,
@@ -58,16 +58,21 @@ export const CreatePost = () => {
   });
 
   return (
-    <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-      <div>
-        <input {...register("title")} style={{ width: "100%", boxSizing: "border-box" }} />
-        {errors.title && <p style={{ margin: 0 }}>{errors.title.message}</p>}
-      </div>
-      <div>
-        <input {...register("body")} style={{ width: "100%", boxSizing: "border-box" }} />
-        {errors.body && <p style={{ margin: 0 }}>{errors.body.message}</p>}
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h1 style={{ fontSize: 20 }}>Create Post</h1>
+      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div>
+          <input {...register("title")} style={{ width: "100%", boxSizing: "border-box" }} />
+          {errors.title && <p style={{ margin: 0 }}>{errors.title.message}</p>}
+        </div>
+        <div>
+          <input {...register("body")} style={{ width: "100%", boxSizing: "border-box" }} />
+          {errors.body && <p style={{ margin: 0 }}>{errors.body.message}</p>}
+        </div>
+        <button type="submit" disabled={isPending}>
+          {isPending ? "Creating..." : "Create"}
+        </button>
+      </form>
+    </div>
   );
 };

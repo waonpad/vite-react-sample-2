@@ -5,7 +5,7 @@ import type { ExtractFnReturnType } from "@/types";
 import { type UseSuspenseQueryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { postSchema } from "../schemas";
-import { postsKeys } from "./_query-keys";
+import { postsKeys } from "./_keys";
 
 export const getPostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",

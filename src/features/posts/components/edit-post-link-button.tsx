@@ -9,10 +9,6 @@ type Props = Omit<ComponentPropsWithoutRef<typeof LinkButton>, "to"> & {
   postId: typeof postSchema._type.id;
 };
 
-export const EditPostLinkButton = ({ postId, children, ...rest }: Props) => {
-  return (
-    <LinkButton {...rest} to={`/posts/${postId}/edit`} role="button">
-      {children ?? "Edit"}
-    </LinkButton>
-  );
+export const EditPostLinkButton = ({ postId, ...rest }: Props) => {
+  return <LinkButton {...rest} to={`/posts/${postId}/edit`} role="button" />;
 };

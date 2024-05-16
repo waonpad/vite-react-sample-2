@@ -24,7 +24,7 @@ export const EditPost = () => {
     throw error;
   }
 
-  const { mutateAsync } = useUpdatePostMutation();
+  const { mutateAsync, isPending } = useUpdatePostMutation();
 
   const {
     register,
@@ -68,16 +68,21 @@ export const EditPost = () => {
   });
 
   return (
-    <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-      <div>
-        <input {...register("title")} style={{ width: "100%", boxSizing: "border-box" }} />
-        {errors.title && <p style={{ margin: 0 }}>{errors.title.message}</p>}
-      </div>
-      <div>
-        <input {...register("body")} style={{ width: "100%", boxSizing: "border-box" }} />
-        {errors.body && <p style={{ margin: 0 }}>{errors.body.message}</p>}
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h1 style={{ fontSize: 20 }}>Edit Post</h1>
+      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div>
+          <input {...register("title")} style={{ width: "100%", boxSizing: "border-box" }} />
+          {errors.title && <p style={{ margin: 0 }}>{errors.title.message}</p>}
+        </div>
+        <div>
+          <input {...register("body")} style={{ width: "100%", boxSizing: "border-box" }} />
+          {errors.body && <p style={{ margin: 0 }}>{errors.body.message}</p>}
+        </div>
+        <button type="submit" disabled={isPending}>
+          {isPending ? "Updating..." : "Update"}
+        </button>
+      </form>
+    </div>
   );
 };

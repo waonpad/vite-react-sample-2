@@ -5,7 +5,7 @@ import type { ExtractFnReturnType } from "@/types";
 import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { postSchema } from "../schemas";
-import { postsKeys } from "./_query-keys";
+import { postsKeys } from "./_keys";
 
 export const updatePostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",
@@ -28,12 +28,23 @@ export const useUpdatePostMutation = ({
 } = {}) => {
   return useMutation({
     ...config,
-    onSuccess([data, error]) {
+    onSuccess: async (res, ...args) => {
+      const [data, error] = res;
+
       if (!error) {
-        queryClient.invalidateQueries({
+        await queryClient.invalidateQueries({
+          /**
+           * 更新した投稿のキャッシュを古いものとして扱い再取得させる \
+           * このキーだと一覧画面で更新しても一覧が再取得されないので更新前のままになる \
+           * 一覧画面で投稿を更新した時に再取得されるようにするためには、一覧画面のキーを使う必要がある
+           * @example
+           * queryKey: postsKeys.lists()
+           */
           queryKey: postsKeys.detail(data.id),
         });
       }
+
+      config?.onSuccess?.(res, ...args);
     },
     mutationFn: updatePost,
   });

@@ -2,6 +2,9 @@
 
 import React from "react";
 
+/**
+ * IntersectionObserver を使って、要素が画面内に入った時にコールバックを実行する
+ */
 export const useIntersectionObserver = ({
   root,
   target,

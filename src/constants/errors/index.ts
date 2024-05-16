@@ -2,6 +2,7 @@ type HttpErrorType = {
   name: "HttpError";
   status: number;
   message: string;
+  // これより下のプロパティはプロジェクトのエラーがどういう形式かによる
   details?: {
     code: number;
     message: string;

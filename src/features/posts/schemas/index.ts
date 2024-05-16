@@ -4,7 +4,7 @@ import { z } from "zod";
  * エンティティのスキーマ
  */
 export const postSchema = z.object({
-  id: z.number({
+  id: z.coerce.number({
     invalid_type_error: "IDは数値である必要があります",
     required_error: "IDは必須です",
   }),
@@ -20,7 +20,7 @@ export const postSchema = z.object({
       required_error: "本文は必須です",
     })
     .min(1, "本文は1文字以上である必要があります"),
-  userId: z.number({
+  userId: z.coerce.number({
     invalid_type_error: "ユーザーIDは数値である必要があります",
     required_error: "ユーザーIDは必須です",
   }),

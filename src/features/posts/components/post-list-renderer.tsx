@@ -14,7 +14,7 @@ type Props = {
 /**
  * 投稿リストはいろいろな方法で取得されるが、表示するものは同じなので、リストをコンポーネントとして切り出した
  */
-export const PostList = ({ posts }: Props) => {
+export const PostListRenderer = ({ posts }: Props) => {
   return (
     <div>
       {posts.map((post) => (
@@ -25,8 +25,10 @@ export const PostList = ({ posts }: Props) => {
             </Link>
             <p style={{ margin: 0 }}>{post.body}</p>
             <div style={{ display: "flex", gap: 8 }}>
-              <EditPostLinkButton postId={post.id} />
-              <DeletePostButton postId={post.id}>Delete</DeletePostButton>
+              <EditPostLinkButton postId={post.id}>Edit</EditPostLinkButton>
+              <DeletePostButton postId={post.id} indicator={"Deleting"}>
+                Delete
+              </DeletePostButton>
             </div>
           </div>
           {posts.indexOf(post) !== posts.length - 1 && <hr style={{ marginTop: 16 }} />}

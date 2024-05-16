@@ -1,7 +1,7 @@
 import { env } from "@/constants/env";
 import { HttpError } from "@/constants/errors";
 import { getCookie } from "@/utils/cookie/get-cookie";
-import { toReqSearchParams } from "@/utils/req-search-params";
+import { stringify } from "qs";
 
 export type PathParamsObj = Record<string, string | number>;
 
@@ -118,11 +118,14 @@ export const get = async <
   path: string,
   options: Options<U, V, undefined>,
 ): Promise<T> => {
-  return http<T>(`${replacePathParams(path, options?.params ?? {})}${toReqSearchParams(options?.searchParams)}`, {
-    ...options,
-    method: "GET",
-    headers: buildHeaders(options?.headers),
-  });
+  return http<T>(
+    `${replacePathParams(path, options?.params ?? {})}${stringify(options?.searchParams, { addQueryPrefix: true })}`,
+    {
+      ...options,
+      method: "GET",
+      headers: buildHeaders(options?.headers),
+    },
+  );
 };
 
 /**

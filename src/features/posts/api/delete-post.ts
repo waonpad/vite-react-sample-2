@@ -5,7 +5,7 @@ import type { ExtractFnReturnType } from "@/types";
 import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { postSchema } from "../schemas";
-import { postsKeys } from "./_query-keys";
+import { postsKeys } from "./_keys";
 
 export const deletePostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",
@@ -25,12 +25,23 @@ export const useDeletePostMutation = ({
 } = {}) => {
   return useMutation({
     ...config,
-    onSuccess([_, error], variables) {
+    onSuccess: async (res, variables, ...args) => {
+      const [_, error] = res;
+
       if (!error) {
-        queryClient.invalidateQueries({
+        await queryClient.invalidateQueries({
+          /**
+           * 削除した投稿のキャッシュを古いものとして扱い再取得させる \
+           * このキーだと一覧画面で削除しても一覧が再取得されないので削除した投稿が残ったままになる \
+           * 一覧画面で投稿を削除した時に再取得されるようにするためには、一覧画面のキーを使う必要がある
+           * @example
+           * queryKey: postsKeys.lists()
+           */
           queryKey: postsKeys.detail(variables.params.id),
         });
       }
+
+      config?.onSuccess?.(res, variables, ...args);
     },
     mutationFn: deletePost,
   });

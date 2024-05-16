@@ -8,6 +8,7 @@ export const MainLayout = ({ children }: { children: ReactNode }) => {
       <div style={{ display: "flex", gap: 12 }}>
         <Link to="/">Home</Link>
         <Link to="/posts">Posts</Link>
+        <Link to="/posts/optimistic">Optimistic</Link>
         <Link to="/posts/infinite">Infinite</Link>
         <Link to="/posts/infinite/auto">Infinite Auto Load</Link>
         <Link to="/posts/create">Create Post</Link>

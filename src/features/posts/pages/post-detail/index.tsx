@@ -31,6 +31,7 @@ export const PostDetail = () => {
 
   return (
     <div>
+      <h1 style={{ fontSize: 20 }}>Post Detail</h1>
       <h2>{post.title}</h2>
       <p>{post.body}</p>
       <div style={{ display: "flex", gap: 8 }}>
