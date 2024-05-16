@@ -28,7 +28,6 @@ export const contractFetcher = <T extends ApiContract>(contract: T) => {
      * パスパラメータのバリデーション
      */
     if (contract.params) {
-      // TODO: バリデーションエラーをHttpErrorと合わせる
       const { data, success } = contract.params.safeParse(init.params);
 
       if (!success) {
@@ -45,7 +44,6 @@ export const contractFetcher = <T extends ApiContract>(contract: T) => {
      * クエリパラメータのバリデーション
      */
     if (contract.searchParams) {
-      // TODO: バリデーションエラーをHttpErrorと合わせる
       const { data, success } = contract.searchParams.safeParse(init.searchParams);
 
       if (!success) {
@@ -62,10 +60,14 @@ export const contractFetcher = <T extends ApiContract>(contract: T) => {
      * リクエストボディのバリデーション
      */
     if (contract.body) {
-      // TODO: バリデーションエラーをHttpErrorと合わせる
       const { data, success } = contract.body.safeParse(init.body);
 
       if (!success) {
+        // バリデーションエラーの形式をバックエンドと揃えるのが面倒
+
+        // ここでリクエストボディのバリデーションエラーが起きると言うことはフォームを通さず異常なリクエストが行われているので、
+        // バリデーションエラーの形式を返さなくても問題が無さそう
+        // (バックエンドもzodでバリデーションしているならコストが低いのでバリデーションエラーを返してもいいか)
         const error = new HttpError("リクエストボディが不正です", { status: 400 });
 
         return [null, error];

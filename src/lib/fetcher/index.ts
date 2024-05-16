@@ -89,7 +89,10 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   if (!res.ok) {
     const data = await res.json();
 
-    const error = new HttpError(data.message ?? "HTTPエラーが発生しました", { status: res.status });
+    const error = new HttpError(data.message ?? "HTTPエラーが発生しました", {
+      status: res.status,
+      details: data.details,
+    });
 
     throw error;
   }

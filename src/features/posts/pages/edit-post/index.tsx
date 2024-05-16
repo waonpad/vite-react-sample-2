@@ -30,6 +30,7 @@ export const EditPost = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<typeof updatePostFormSchema._input>({
     defaultValues: { title: post.title, body: post.body },
     resolver: zodResolver(updatePostFormSchema),
@@ -38,9 +39,27 @@ export const EditPost = () => {
   const onSubmit = handleSubmit(async (data: typeof updatePostFormSchema._type) => {
     const [updatedPost, error] = await mutateAsync({ params: { id: post.id }, body: { ...data, userId: post.userId } });
 
-    // TODO: いい感じにバックエンドのエラーやcontractFetcherで投げられたエラーをさばきたい
     if (error) {
       // エラーに応じた処理
+
+      // 422の場合はリクエストボディのバリデーションエラーと仮定
+      if (error.status === 422) {
+        // error.detailsにはバリデーションエラーの詳細が入っていると仮定
+        // codeが1,2の場合はtitleのエラー、3,4の場合はbodyのエラーと仮定
+        for (const detail of error.details ?? []) {
+          if (detail.code === 1 || detail.code === 2) {
+            setError("title", { message: detail.message });
+          } else if (detail.code === 3 || detail.code === 4) {
+            // bodyのエラー処理
+            setError("body", { message: detail.message });
+          }
+        }
+
+        // バリデーションエラーの場合は処理を終了
+        return;
+      }
+
+      // バリデーションエラーでない場合はエラーを投げる
       throw error;
     }
 
