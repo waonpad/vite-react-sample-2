@@ -5,6 +5,7 @@
 - React
 - TypeScript
 - React Router
+- React Hook Form
 - TanStack Query
 - T3 Env
 - Biome
