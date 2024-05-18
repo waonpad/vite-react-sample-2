@@ -1,4 +1,6 @@
+import { getInitialData } from "@/lib/react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { postsKeys } from "../../api/_keys";
 import { usePost } from "../../api/get-post";
 import { DeletePostButton } from "../../components/delete-post-button";
 import { EditPostLinkButton } from "../../components/edit-post-link-button";
@@ -10,7 +12,15 @@ export const PostDetail = () => {
 
   const {
     data: [post, error],
-  } = usePost({ init: { params: { id: Number(id) } } });
+  } = usePost({
+    init: { params: { id: Number(id) } },
+    config: {
+      ...getInitialData<Exclude<ReturnType<typeof usePost>["data"][0], null>>({
+        targetFilter: (data) => data.id === Number(id),
+        queryFilters: { queryKey: postsKeys.lists() },
+      }),
+    },
+  });
 
   if (error) {
     // エラーに応じた処理
