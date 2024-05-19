@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { usePost } from "../../api/get-post";
+import { usePostQuery } from "../../api/get-post";
 import { updatePostContract, useUpdatePostMutation } from "../../api/update-post";
 
 /**
@@ -17,7 +17,7 @@ export const EditPost = () => {
 
   const {
     data: [post, error],
-  } = usePost({ init: { params: { id: Number(id) } } });
+  } = usePostQuery({ init: { params: { id: Number(id) } } });
 
   if (error) {
     // エラーに応じた処理

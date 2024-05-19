@@ -1,6 +1,6 @@
 import { parse } from "qs";
 import { useLocation } from "react-router-dom";
-import { usePosts } from "../../api/get-posts";
+import { usePostsQuery } from "../../api/get-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
 
 export const PostList = () => {
@@ -8,7 +8,7 @@ export const PostList = () => {
 
   const {
     data: [posts, error],
-  } = usePosts({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
+  } = usePostsQuery({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
 
   if (error) {
     // エラーに応じた処理

@@ -1,6 +1,6 @@
 import { parse } from "qs";
 import { useLocation } from "react-router-dom";
-import { useInfinitePosts } from "../../api/get-infinite-posts";
+import { useInfinitePostsQuery } from "../../api/get-infinite-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
 
 export const InfinitePostList = () => {
@@ -9,7 +9,7 @@ export const InfinitePostList = () => {
   const {
     data: { pages },
     fetchNextPage,
-  } = useInfinitePosts({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
+  } = useInfinitePostsQuery({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
 
   const errors = pages.map((page) => page[1]);
 

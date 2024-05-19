@@ -2,7 +2,7 @@ import { useIntersectionObserver } from "@/utils/hooks/use-intersection-observer
 import { parse } from "qs";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useInfinitePosts } from "../../api/get-infinite-posts";
+import { useInfinitePostsQuery } from "../../api/get-infinite-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
 
 export const InfiniteAutoLoadPostList = () => {
@@ -12,7 +12,7 @@ export const InfiniteAutoLoadPostList = () => {
     data: { pages },
     fetchNextPage,
     hasNextPage,
-  } = useInfinitePosts({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
+  } = useInfinitePostsQuery({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
 
   for (const error of pages.map((page) => page[1])) {
     if (error) {

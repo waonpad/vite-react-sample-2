@@ -1,8 +1,7 @@
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
-import { queryClient } from "@/lib/react-query";
+import { type UseMutationOptions, queryClient, useMutation } from "@/lib/tanstack-query";
 import type { ExtractFnReturnType } from "@/types";
-import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { postSchema } from "../schemas";
 import { postsKeys } from "./_keys";
 
