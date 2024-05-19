@@ -1,10 +1,8 @@
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { getParsedContractRequestParams } from "@/lib/fetcher/contract/utils";
-import type { QC } from "@/lib/react-query";
+import { type QC, type UseSuspenseQueryOptions, useSuspenseQuery } from "@/lib/tanstack-query";
 import type { ExtractFnReturnType } from "@/types";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import type { UseSuspenseQueryOptions } from "@tanstack/react-query";
 import { z } from "zod";
 import { postSchema } from "../schemas";
 import { postsKeys } from "./_keys";
@@ -21,7 +19,7 @@ export const getPostsContract = createContract({
 
 export const getPosts = contractFetcher(getPostsContract);
 
-export const usePosts = ({
+export const usePostsQuery = ({
   init,
   config,
 }: {

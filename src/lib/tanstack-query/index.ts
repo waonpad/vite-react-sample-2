@@ -20,3 +20,5 @@ const queryConfig: DefaultOptions = {
 export const queryClient = new QueryClient({ defaultOptions: queryConfig });
 
 export type QC<T> = Omit<T, "queryKey" | "queryFn">;
+
+export * from "@tanstack/react-query";

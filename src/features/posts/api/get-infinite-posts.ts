@@ -1,13 +1,13 @@
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { getParsedContractRequestParams } from "@/lib/fetcher/contract/utils";
-import type { QC } from "@/lib/react-query";
-import type { ExtractFnReturnType } from "@/types";
 import {
   type InfiniteData,
+  type QC,
   type UseSuspenseInfiniteQueryOptions,
   useSuspenseInfiniteQuery,
-} from "@tanstack/react-query";
+} from "@/lib/tanstack-query";
+import type { ExtractFnReturnType } from "@/types";
 import { z } from "zod";
 import { postsKeys } from "./_keys";
 import { getPostsContract } from "./get-posts";
@@ -31,7 +31,7 @@ const getInfinitePosts = contractFetcher(getInfinitePostsContract);
 // ここで定義してアサーションするのではなく、useSuspenseInfiniteQueryの第5型引数に指定する方が安全ではある
 type PageParam = number;
 
-export const useInfinitePosts = ({
+export const useInfinitePostsQuery = ({
   init,
   config,
 }: {

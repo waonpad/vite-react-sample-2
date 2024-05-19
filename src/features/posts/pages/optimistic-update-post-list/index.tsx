@@ -1,7 +1,7 @@
 import { parse } from "qs";
 import { useLocation } from "react-router-dom";
 import { useCreatePostMutation } from "../../api/create-post";
-import { usePosts } from "../../api/get-posts";
+import { usePostsQuery } from "../../api/get-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
 
 /**
@@ -12,7 +12,7 @@ export const OptimisticPostList = () => {
 
   const {
     data: [posts, error],
-  } = usePosts({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
+  } = usePostsQuery({ init: { searchParams: parse(search, { ignoreQueryPrefix: true }) } });
 
   if (error) {
     // エラーに応じた処理
