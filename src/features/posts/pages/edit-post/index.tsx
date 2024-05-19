@@ -1,6 +1,8 @@
+import { getInitialData } from "@/lib/tanstack-query/utils/get-initial-data";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { postsKeys } from "../../api/_keys";
 import { usePostQuery } from "../../api/get-post";
 import { updatePostContract, useUpdatePostMutation } from "../../api/update-post";
 
@@ -17,7 +19,15 @@ export const EditPost = () => {
 
   const {
     data: [post, error],
-  } = usePostQuery({ init: { params: { id: Number(id) } } });
+  } = usePostQuery({
+    init: { params: { id: Number(id) } },
+    config: {
+      ...getInitialData<Exclude<ReturnType<typeof usePostQuery>["data"][0], null>>({
+        targetFilter: (data) => data.id === Number(id),
+        queryFilters: { queryKey: postsKeys.lists() },
+      }),
+    },
+  });
 
   if (error) {
     // エラーに応じた処理

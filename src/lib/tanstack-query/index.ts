@@ -13,7 +13,7 @@ const queryConfig: DefaultOptions = {
      * キャッシュの有効期限 \
      * バックエンドへのリクエスト数に関わる重要な設定
      */
-    staleTime: 1000 * 5,
+    staleTime: 0,
   },
 };
 
