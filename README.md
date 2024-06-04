@@ -8,7 +8,9 @@
 - React Hook Form
 - TanStack Query
 - T3 Env
-- Biome
+- ESLint
+- Prettier
+- Stylelint
 - Vitest
 
 CSS, 認証関連は入ってない

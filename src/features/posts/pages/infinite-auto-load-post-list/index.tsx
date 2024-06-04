@@ -1,9 +1,9 @@
-import { useIntersectionObserver } from "@/utils/hooks/use-intersection-observer";
-import { parse } from "qs";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { parse } from "qs";
 import { useInfinitePostsQuery } from "../../api/get-infinite-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
+import { useIntersectionObserver } from "@/utils/hooks/use-intersection-observer";
 
 export const InfiniteAutoLoadPostList = () => {
   const { search } = useLocation();
@@ -34,7 +34,7 @@ export const InfiniteAutoLoadPostList = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: 20 }}>Infinite Auto Load</h1>
+      <h1 className="text-xl">Infinite Auto Load</h1>
       <PostListRenderer posts={posts} />
       <div ref={loadMoreRef} style={{ visibility: "hidden" }} aria-label="load more event target" />
     </div>

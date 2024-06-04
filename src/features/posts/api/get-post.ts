@@ -1,10 +1,10 @@
-import { createContract } from "@/lib/fetcher/contract";
-import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
-import { type QC, type UseSuspenseQueryOptions, useSuspenseQuery } from "@/lib/tanstack-query";
-import type { ExtractFnReturnType } from "@/types";
 import { z } from "zod";
 import { postSchema } from "../schemas";
 import { postsKeys } from "./_keys";
+import type { ExtractFnReturnType } from "@/types";
+import { createContract } from "@/lib/fetcher/contract";
+import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
+import { type QC, type UseSuspenseQueryOptions, useSuspenseQuery } from "@/lib/tanstack-query";
 
 export const getPostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",

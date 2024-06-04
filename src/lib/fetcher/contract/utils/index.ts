@@ -1,6 +1,6 @@
-import type { z } from "zod";
 import type { contractFetcher } from "../contract-fetcher";
 import type { ApiContractGet } from "../types";
+import type { z } from "zod";
 
 /**
  * @description

@@ -1,7 +1,7 @@
+import type { ReactNode } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 
 import { useWindowEvent } from "@/utils/hooks/use-window-event";
-import type { ReactNode } from "react";
 
 /**
  * @description

@@ -1,5 +1,5 @@
-import { parse } from "qs";
 import { useLocation } from "react-router-dom";
+import { parse } from "qs";
 import { usePostsQuery } from "../../api/get-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
 
@@ -17,7 +17,7 @@ export const PostList = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: 20 }}>Posts</h1>
+      <h1 className="text-xl">Posts</h1>
       <PostListRenderer posts={posts} />
     </div>
   );

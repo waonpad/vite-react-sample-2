@@ -1,8 +1,8 @@
+import { Suspense } from "react";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { SuspenseFallback } from "@/components/elements/suspense-fallback";
 import { MainLayout } from "@/components/layouts/main-layout";
 import { lazyImport } from "@/utils/lazy-import";
-import { Suspense } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
 
 const { NotFound } = lazyImport(() => import("@/features/misc/pages/not-found"), "NotFound");
 

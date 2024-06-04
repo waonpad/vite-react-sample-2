@@ -1,6 +1,6 @@
-import { HttpError } from "@/constants/errors";
 import { type Options, destroy, get, post, put } from "..";
 import type { ApiContract } from "./types";
+import { HttpError } from "@/constants/errors";
 
 /**
  * @description

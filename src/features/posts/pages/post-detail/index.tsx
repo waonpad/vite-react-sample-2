@@ -1,9 +1,9 @@
-import { getInitialData } from "@/lib/tanstack-query/utils/get-initial-data";
 import { useNavigate, useParams } from "react-router-dom";
 import { postsKeys } from "../../api/_keys";
 import { usePostQuery } from "../../api/get-post";
 import { DeletePostButton } from "../../components/delete-post-button";
 import { EditPostLinkButton } from "../../components/edit-post-link-button";
+import { getInitialData } from "@/lib/tanstack-query/utils/get-initial-data";
 
 export const PostDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,10 +41,10 @@ export const PostDetail = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: 20 }}>Post Detail</h1>
+      <h1 className="text-xl">Post Detail</h1>
       <h2>{post.title}</h2>
       <p>{post.body}</p>
-      <div style={{ display: "flex", gap: 8 }}>
+      <div className="flex gap-2">
         <EditPostLinkButton postId={post.id}>Edit</EditPostLinkButton>
         <DeletePostButton postId={post.id} onClick={handleDeletePostButtonClick}>
           Delete

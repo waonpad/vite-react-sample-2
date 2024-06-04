@@ -1,5 +1,5 @@
-import { parse } from "qs";
 import { useLocation } from "react-router-dom";
+import { parse } from "qs";
 import { useInfinitePostsQuery } from "../../api/get-infinite-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
 
@@ -31,7 +31,7 @@ export const InfinitePostList = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: 20 }}>Infinite</h1>
+      <h1 className="text-xl">Infinite</h1>
       <button type="button" onClick={handleLoadMoreButtonClick}>
         Load More
       </button>

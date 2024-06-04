@@ -1,6 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { createPostContract, useCreatePostMutation } from "../../api/create-post";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 /**
  * 投稿作成時にフォームで入力される値のスキーマ
@@ -13,17 +16,11 @@ export const createPostFormSchema = createPostContract.body.pick({
 export const CreatePost = () => {
   const { mutateAsync, isPending } = useCreatePostMutation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setError,
-  } = useForm<typeof createPostFormSchema._input>({
+  const form = useForm<typeof createPostFormSchema._input>({
     resolver: zodResolver(createPostFormSchema),
   });
 
-  const onSubmit = handleSubmit(async (data: typeof createPostFormSchema._type) => {
+  const onSubmit = form.handleSubmit(async (data: typeof createPostFormSchema._type) => {
     const [createdPost, error] = await mutateAsync({ body: { ...data, userId: 1 } });
 
     if (error) {
@@ -35,10 +32,10 @@ export const CreatePost = () => {
         // codeが1,2の場合はtitleのエラー、3,4の場合はbodyのエラーと仮定
         for (const detail of error.details ?? []) {
           if (detail.code === 1 || detail.code === 2) {
-            setError("title", { message: detail.message });
+            form.setError("title", { message: detail.message });
           } else if (detail.code === 3 || detail.code === 4) {
             // bodyのエラー処理
-            setError("body", { message: detail.message });
+            form.setError("body", { message: detail.message });
           }
         }
 
@@ -54,25 +51,45 @@ export const CreatePost = () => {
     console.log("Created", createdPost);
 
     // フォームを初期値に戻す
-    reset();
+    form.reset();
   });
 
   return (
     <div>
-      <h1 style={{ fontSize: 20 }}>Create Post</h1>
-      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        <div>
-          <input {...register("title")} style={{ width: "100%", boxSizing: "border-box" }} />
-          {errors.title && <p style={{ margin: 0 }}>{errors.title.message}</p>}
-        </div>
-        <div>
-          <input {...register("body")} style={{ width: "100%", boxSizing: "border-box" }} />
-          {errors.body && <p style={{ margin: 0 }}>{errors.body.message}</p>}
-        </div>
-        <button type="submit" disabled={isPending}>
-          {isPending ? "Creating..." : "Create"}
-        </button>
-      </form>
+      <h1 className="text-xl">Create Post</h1>
+      <Form {...form}>
+        <form onSubmit={onSubmit} className="flex flex-col gap-3">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Title</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage>{form.formState.errors.title?.message}</FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="body"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Body</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage>{form.formState.errors.body?.message}</FormMessage>
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Creating..." : "Create"}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };

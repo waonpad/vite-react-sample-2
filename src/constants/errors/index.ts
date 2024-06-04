@@ -23,7 +23,6 @@ export class HttpError extends Error {
 
   toJSON(): HttpErrorType {
     const result = {};
-    // biome-ignore lint/complexity/noForEach: <explanation>
     Object.getOwnPropertyNames(this).forEach((key) => {
       // @ts-ignore
       result[key] = this[key];

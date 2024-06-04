@@ -1,10 +1,10 @@
-import { createContract } from "@/lib/fetcher/contract";
-import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
-import { type UseMutationOptions, queryClient, useMutation } from "@/lib/tanstack-query";
-import type { ExtractFnReturnType } from "@/types";
 import { z } from "zod";
 import { postSchema } from "../schemas";
 import { postsKeys } from "./_keys";
+import type { ExtractFnReturnType } from "@/types";
+import { createContract } from "@/lib/fetcher/contract";
+import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
+import { type UseMutationOptions, queryClient, useMutation } from "@/lib/tanstack-query";
 
 export const deletePostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts/{id}",
@@ -25,7 +25,7 @@ export const useDeletePostMutation = ({
   return useMutation({
     ...config,
     onSuccess: async (res, variables, ...args) => {
-      const [_, error] = res;
+      const [, error] = res;
 
       if (!error) {
         await queryClient.invalidateQueries({

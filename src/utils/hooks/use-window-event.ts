@@ -12,7 +12,6 @@ export const useWindowEvent = <K extends keyof WindowEventMap>(
 ) => {
   const memoizedListener = useCallback(listener, deps);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (window) {
       window.addEventListener(type, memoizedListener, options);

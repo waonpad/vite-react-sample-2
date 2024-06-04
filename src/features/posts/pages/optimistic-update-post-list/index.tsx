@@ -1,5 +1,5 @@
-import { parse } from "qs";
 import { useLocation } from "react-router-dom";
+import { parse } from "qs";
 import { useCreatePostMutation } from "../../api/create-post";
 import { usePostsQuery } from "../../api/get-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
@@ -50,7 +50,7 @@ export const OptimisticPostList = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: 20 }}>Optimistic</h1>
+      <h1 className="text-xl">Optimistic</h1>
       <button type="button" onClick={handleTestOptimisticUpdateButtonClick}>
         Test Optimistic Update
       </button>

@@ -1,9 +1,9 @@
+import { postSchema } from "../schemas";
+import { postsKeys } from "./_keys";
+import type { ExtractFnReturnType } from "@/types";
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { type UseMutationOptions, queryClient, useMutation } from "@/lib/tanstack-query";
-import type { ExtractFnReturnType } from "@/types";
-import { postSchema } from "../schemas";
-import { postsKeys } from "./_keys";
 
 export const createPostContract = createContract({
   path: "https://jsonplaceholder.typicode.com/posts",
@@ -26,7 +26,7 @@ export const useCreatePostMutation = ({
   return useMutation({
     ...config,
     onSuccess: async (res, ...args) => {
-      const [_, error] = res;
+      const [, error] = res;
 
       if (!error) {
         await queryClient.invalidateQueries({

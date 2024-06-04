@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { stringify } from "qs";
 import { env } from "@/constants/env";
 import { HttpError } from "@/constants/errors";
 import { getCookie } from "@/utils/cookie/get-cookie";
-import { stringify } from "qs";
 
 export type PathParamsObj = Record<string, string | number>;
 
@@ -89,8 +90,10 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   if (!res.ok) {
     const data = await res.json();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const error = new HttpError(data.message ?? "HTTPエラーが発生しました", {
       status: res.status,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       details: data.details,
     });
 
@@ -100,6 +103,7 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   // statusCodeが204のときにres.json()を実行するとエラーになるため
   if (res.status === 204) return {} as T;
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return await res.json();
 };
 

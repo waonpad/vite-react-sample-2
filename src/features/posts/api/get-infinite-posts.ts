@@ -1,3 +1,7 @@
+import { z } from "zod";
+import { postsKeys } from "./_keys";
+import { getPostsContract } from "./get-posts";
+import type { ExtractFnReturnType } from "@/types";
 import { createContract } from "@/lib/fetcher/contract";
 import { contractFetcher } from "@/lib/fetcher/contract/contract-fetcher";
 import { getParsedContractRequestParams } from "@/lib/fetcher/contract/utils";
@@ -7,10 +11,6 @@ import {
   type UseSuspenseInfiniteQueryOptions,
   useSuspenseInfiniteQuery,
 } from "@/lib/tanstack-query";
-import type { ExtractFnReturnType } from "@/types";
-import { z } from "zod";
-import { postsKeys } from "./_keys";
-import { getPostsContract } from "./get-posts";
 
 const DEFAULT_LIMIT = 10;
 
