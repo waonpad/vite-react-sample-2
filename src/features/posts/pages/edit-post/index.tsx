@@ -7,6 +7,7 @@ import { updatePostContract, useUpdatePostMutation } from "../../api/update-post
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Typography from "@/components/ui/typography";
 import { getInitialData } from "@/lib/tanstack-query/utils/get-initial-data";
 
 /**
@@ -77,7 +78,7 @@ export const EditPost = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Edit Post</h1>
+      <Typography variant="h1">Edit Post</Typography>
       <Form {...form}>
         <form onSubmit={onSubmit} className="flex flex-col gap-3">
           <FormField

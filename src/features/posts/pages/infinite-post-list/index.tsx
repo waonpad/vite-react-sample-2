@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom";
 import { parse } from "qs";
 import { useInfinitePostsQuery } from "../../api/get-infinite-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
+import { Button } from "@/components/ui/button";
+import Typography from "@/components/ui/typography";
 
 export const InfinitePostList = () => {
   const { search } = useLocation();
@@ -31,10 +33,8 @@ export const InfinitePostList = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Infinite</h1>
-      <button type="button" onClick={handleLoadMoreButtonClick}>
-        Load More
-      </button>
+      <Typography variant="h1">Infinite</Typography>
+      <Button onClick={handleLoadMoreButtonClick}>Load More</Button>
       <PostListRenderer posts={posts} />
     </div>
   );

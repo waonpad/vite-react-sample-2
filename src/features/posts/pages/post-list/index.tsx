@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { parse } from "qs";
 import { usePostsQuery } from "../../api/get-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
+import Typography from "@/components/ui/typography";
 
 export const PostList = () => {
   const { search } = useLocation();
@@ -17,7 +18,7 @@ export const PostList = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Posts</h1>
+      <Typography variant="h1">Posts</Typography>
       <PostListRenderer posts={posts} />
     </div>
   );

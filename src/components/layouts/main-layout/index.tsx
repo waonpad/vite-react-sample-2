@@ -1,19 +1,31 @@
 import type { ReactNode } from "react";
+import type { To } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Typography from "@/components/ui/typography";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/posts", label: "Posts" },
+  { to: "/posts/optimistic", label: "Optimistic" },
+  { to: "/posts/infinite", label: "Infinite" },
+  { to: "/posts/infinite/auto", label: "Infinite Auto Load" },
+  { to: "/posts/create", label: "Create Post" },
+] as const satisfies {
+  to: To;
+  label: string;
+}[];
 
 export const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div>layout</div>
-      <div className="flex gap-3">
-        <Link to="/">Home</Link>
-        <Link to="/posts">Posts</Link>
-        <Link to="/posts/optimistic">Optimistic</Link>
-        <Link to="/posts/infinite">Infinite</Link>
-        <Link to="/posts/infinite/auto">Infinite Auto Load</Link>
-        <Link to="/posts/create">Create Post</Link>
-      </div>
-      <main className="mt-3">{children}</main>
+      <header className="sticky top-0 z-10 flex gap-3 border-b bg-background p-2">
+        {navLinks.map((link) => (
+          <Link key={link.to} to={link.to}>
+            <Typography affects="large">{link.label}</Typography>
+          </Link>
+        ))}
+      </header>
+      <main className="m-3">{children}</main>
     </>
   );
 };

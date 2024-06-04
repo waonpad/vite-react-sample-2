@@ -4,6 +4,7 @@ import { createPostContract, useCreatePostMutation } from "../../api/create-post
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Typography from "@/components/ui/typography";
 
 /**
  * 投稿作成時にフォームで入力される値のスキーマ
@@ -56,7 +57,7 @@ export const CreatePost = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Create Post</h1>
+      <Typography variant="h1">Create Post</Typography>
       <Form {...form}>
         <form onSubmit={onSubmit} className="flex flex-col gap-3">
           <FormField

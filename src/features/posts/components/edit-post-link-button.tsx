@@ -6,15 +6,14 @@ import { Button } from "@/components/ui/button";
 /**
  * このコンポーネントはドメイン知識を持っているが、HTML構造がシンプルなため、propsを受け取ってみる
  */
-type Props = Omit<ComponentPropsWithoutRef<typeof Button>, "asChild"> & {
+type Props = Omit<ComponentPropsWithoutRef<typeof Link>, "asChild" | "to"> & {
   postId: typeof postSchema._type.id;
-  linkProps?: Omit<ComponentPropsWithoutRef<typeof Link>, "to">;
 };
 
-export const EditPostLinkButton = ({ postId, children, linkProps, ...rest }: Props) => {
+export const EditPostLinkButton = ({ postId, children, ...rest }: Props) => {
   return (
-    <Button {...rest} asChild>
-      <Link {...linkProps} to={`/posts/${postId}/edit`}>
+    <Button asChild>
+      <Link {...rest} to={`/posts/${postId}/edit`}>
         {children}
       </Link>
     </Button>
