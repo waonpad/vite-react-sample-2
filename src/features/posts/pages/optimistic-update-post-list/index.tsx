@@ -3,6 +3,8 @@ import { parse } from "qs";
 import { useCreatePostMutation } from "../../api/create-post";
 import { usePostsQuery } from "../../api/get-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
+import { Button } from "@/components/ui/button";
+import Typography from "@/components/ui/typography";
 
 /**
  * 単純な楽観的更新の例
@@ -50,10 +52,8 @@ export const OptimisticPostList = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Optimistic</h1>
-      <button type="button" onClick={handleTestOptimisticUpdateButtonClick}>
-        Test Optimistic Update
-      </button>
+      <Typography variant="h1">Optimistic</Typography>
+      <Button onClick={handleTestOptimisticUpdateButtonClick}>Test Optimistic Update</Button>
       <PostListRenderer posts={optimisticPost ? [optimisticPost, ...posts] : posts} />
     </div>
   );

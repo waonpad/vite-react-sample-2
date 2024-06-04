@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { parse } from "qs";
 import { useInfinitePostsQuery } from "../../api/get-infinite-posts";
 import { PostListRenderer } from "../../components/post-list-renderer";
+import Typography from "@/components/ui/typography";
 import { useIntersectionObserver } from "@/utils/hooks/use-intersection-observer";
 
 export const InfiniteAutoLoadPostList = () => {
@@ -34,9 +35,9 @@ export const InfiniteAutoLoadPostList = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Infinite Auto Load</h1>
+      <Typography variant="h1">Infinite Auto Load</Typography>
       <PostListRenderer posts={posts} />
-      <div ref={loadMoreRef} style={{ visibility: "hidden" }} aria-label="load more event target" />
+      <div ref={loadMoreRef} className="invisible" aria-label="load more event target" />
     </div>
   );
 };

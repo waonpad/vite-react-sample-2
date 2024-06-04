@@ -3,6 +3,7 @@ import { postsKeys } from "../../api/_keys";
 import { usePostQuery } from "../../api/get-post";
 import { DeletePostButton } from "../../components/delete-post-button";
 import { EditPostLinkButton } from "../../components/edit-post-link-button";
+import Typography from "@/components/ui/typography";
 import { getInitialData } from "@/lib/tanstack-query/utils/get-initial-data";
 
 export const PostDetail = () => {
@@ -41,9 +42,9 @@ export const PostDetail = () => {
 
   return (
     <div>
-      <h1 className="text-xl">Post Detail</h1>
-      <h2>{post.title}</h2>
-      <p>{post.body}</p>
+      <Typography variant="h1">Post Detail</Typography>
+      <Typography variant="h3">{post.title}</Typography>
+      <Typography affects="removePMargin">{post.body}</Typography>
       <div className="flex gap-2">
         <EditPostLinkButton postId={post.id}>Edit</EditPostLinkButton>
         <DeletePostButton postId={post.id} onClick={handleDeletePostButtonClick}>

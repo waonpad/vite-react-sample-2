@@ -3,6 +3,8 @@ import { Fragment } from "react/jsx-runtime";
 import { DeletePostButton } from "./delete-post-button";
 import { EditPostLinkButton } from "./edit-post-link-button";
 import type { postSchema } from "../schemas";
+import { Separator } from "@/components/ui/separator";
+import Typography from "@/components/ui/typography";
 
 /**
  * このコンポーネントはドメイン知識を持っていて汎用性が必要なく、HTML構造も複雑なため、propsは必要最小限しか受け取らない
@@ -21,9 +23,11 @@ export const PostListRenderer = ({ posts }: Props) => {
         <Fragment key={post.id}>
           <div className="flex flex-col gap-1">
             <Link to={`/posts/${post.id}`}>
-              <p className="text-2xl">{post.title}</p>
+              <Typography variant="h3">{post.title}</Typography>
             </Link>
-            <p>{post.body}</p>
+            <Typography affects="lead" removePMargin>
+              {post.body}
+            </Typography>
             <div className="flex gap-2">
               <EditPostLinkButton postId={post.id}>Edit</EditPostLinkButton>
               <DeletePostButton postId={post.id} indicator={"Deleting"}>
@@ -31,7 +35,7 @@ export const PostListRenderer = ({ posts }: Props) => {
               </DeletePostButton>
             </div>
           </div>
-          {posts.indexOf(post) !== posts.length - 1 && <hr className="mt-4" />}
+          {posts.indexOf(post) !== posts.length - 1 && <Separator className="mt-2" />}
         </Fragment>
       ))}
     </div>
