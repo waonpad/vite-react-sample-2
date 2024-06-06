@@ -44,7 +44,7 @@ export const PostDetail = () => {
     <div>
       <Typography variant="h1">Post Detail</Typography>
       <Typography variant="h3">{post.title}</Typography>
-      <Typography affects="removePMargin">{post.body}</Typography>
+      <Typography removePMargin>{post.body}</Typography>
       <div className="flex gap-2">
         <EditPostLinkButton postId={post.id}>Edit</EditPostLinkButton>
         <DeletePostButton postId={post.id} onClick={handleDeletePostButtonClick}>
