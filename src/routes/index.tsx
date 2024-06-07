@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
+import { RouteNameSetter as R } from "./named-routes/route-name-setter";
+import { appRoutes } from "./named-routes/routes";
 import { SuspenseFallback } from "@/components/elements/suspense-fallback";
 import { MainLayout } from "@/components/layouts/main-layout";
 import { lazyImport } from "@/utils/lazy-import";
@@ -23,10 +25,18 @@ const App = () => {
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<App />}>
-        <Route index={true} element={<PostList />} />
-        <Route path="/posts/*" element={<PostsRoutes />} />
-        <Route path="*" element={<NotFound />} />
+      <Route path={appRoutes.index().fullPath} element={<App />}>
+        <Route
+          index={true}
+          element={
+            <>
+              <R routeName={appRoutes.index().fullPath} />
+              <PostList />
+            </>
+          }
+        />
+        <Route path={appRoutes.postsAll().fullPath} element={<PostsRoutes />} />
+        <Route path={appRoutes.all().fullPath} element={<NotFound />} />
       </Route>
     </Routes>
   );

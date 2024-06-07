@@ -5,6 +5,7 @@ import { EditPostLinkButton } from "./edit-post-link-button";
 import type { postSchema } from "../schemas";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
+import { appRoutes } from "@/routes/named-routes/routes";
 
 /**
  * このコンポーネントはドメイン知識を持っていて汎用性が必要なく、HTML構造も複雑なため、propsは必要最小限しか受け取らない
@@ -22,7 +23,7 @@ export const PostListRenderer = ({ posts }: Props) => {
       {posts.map((post) => (
         <Fragment key={post.id}>
           <div className="flex flex-col gap-1">
-            <Link to={`/posts/${post.id}`}>
+            <Link to={appRoutes.postsDetail().generate(post.id)}>
               <Typography variant="h3">{post.title}</Typography>
             </Link>
             <Typography affects="lead" removePMargin>

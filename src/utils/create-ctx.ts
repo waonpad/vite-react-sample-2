@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
  * @description
  * 短いコードでContextとProviderを作成するカスタムフック
  * @example
- * const [createdUseXXX, SetXXXProvider] = createCtx<RerurnType<typeof useXXXCtx>>();
+ * const [createdUseXXX, SetXXXProvider] = createCtx<ReturnType<typeof useXXXCtx>>();
  * export { SetXXXProvider };
  * export const useXXX = createdUseXXX;
  * export const useXXXCtx = () => {
