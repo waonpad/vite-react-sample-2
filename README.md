@@ -1,9 +1,15 @@
 # Vite React Sample
 
+shadcn/uiを使ったVite + React + TypeScriptのサンプルプロジェクト
+Tailwindをリント、フォーマットするためESLint + Prettier + Stylelintを導入
+
+名前付きルートをいい感じにできないか試している途中
+
 ## 構成
 - Vite
 - React
 - TypeScript
+- Tailwind CSS(shadcn/ui)
 - React Router
 - React Hook Form
 - TanStack Query
@@ -12,8 +18,6 @@
 - Prettier
 - Stylelint
 - Vitest
-
-CSS, 認証関連は入ってない
 
 ## セットアップ
 ```bash
